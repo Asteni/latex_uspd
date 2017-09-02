@@ -1,4 +1,2 @@
 # latex_uspd
-
-http://www.botik.ru/mail-archive/opents/1213.html
-
+Пакет для pdflatex для оформления документации по ЕСПД в НИУ ВШЭ ФКН ПИ

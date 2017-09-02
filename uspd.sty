@@ -1,7 +1,14 @@
 %% Copyright (c) Alexander V. Inyukhin, 2004.
+%% Copyright (c) Boris Vasilev, 2017.
 
 \usepackage{rotating}
 \usepackage{ifthen}
+\usepackage{tabulary}
+\usepackage{array}
+\newcolumntype{K}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{L}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+
 \newcommand{\No}{\textnumero} % Need for babel v 1.2
 
 \hoffset=-5.4mm
@@ -29,8 +36,6 @@
 %}
 
 \def\ps@uspdluheadings{
-  \def\@oddfoot{\\{Литера <<О>>}}
-  \def\@evenfoot{\\{Литера <<О>>}}
   \let\@oddhead\@empty\let\@evenhead\@empty
   \let\@mkboth\@gobbletwo
   \let\sectionmark\@gobble
@@ -73,8 +78,8 @@
 \newpage
 }}
 
-\newcommand\signfield[1]{\underline{\phantom{ЖЖЖЖЖ}}~{#1}}
-\newcommand\datefield{<<\underline{\phantom{Ж}}>>~\underline{\phantom{ЖЖЖЖЖ}}~{\number\year}~г.}
+\newcommand\signfield[1]{\underline{\phantom{ЖЖЖЖЖЖЖ}}~{#1}}
+\newcommand\datefield{<<\underline{\phantom{Ж}}>>~\underline{\phantom{ЖЖЖЖЖЖЖ}}~{\number\year}~г.}
 \newcommand\pagesfield[1]{\ifthenelse{\pageref{#1} > 1}{Листов \pageref{#1}}{}}
 
 \newcommand\LU[1]{\markboth{{#1}--ЛУ}{{#1}--ЛУ}\setcounter{page}{1}
@@ -85,21 +90,21 @@
 \begin{center}
 
 % field 1, organization
-%{Московский Государственный Университет имени М. В. Ломоносова}
+{\textbf{ПРАВИТЕЛЬСТВО РОССИЙСКОЙ ФЕДЕРАЦИИ \\
+		НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ УНИВЕРСИТЕТ \\
+ВЫСШАЯ ШКОЛА ЭКОНОМИКИ}\\
+	Факультет компъютерных наук \\
+Департамент программной инженерии}
 
 % field 2, names and signatures
-\begin{tabular}{p{70mm}cp{70mm}}
-СОГЛАСОВАНО & & УТВЕРЖДЕНО \\
-& & \\
-Зам. научного руководителя
-Программы <<СКИФ>> от РБ
-Зам. генерального директора
-по научной работе ОИПИ НАН Беларуси
+\begin{tabular}{K{70mm}cK{70mm}}
+	\textbf{СОГЛАСОВАНО} & & 
+\textbf{УТВЕРЖДАЮ}\\
+\proftitle
 & &
-Научный руководитель
-Программы <<СКИФ>> от РФ
-Директор ИПС РАН \\
-\signfield{Анищенко~В.~В.} & & \signfield{Абрамов~С.~М.} \\
+Академический руководитель образовательной программы «Программная инженерия»
+профессор департамента программной инженерии, канд. техн. наук\\
+\signfield{/\profname} & & \signfield{/Шилов~В.~В.} \\
 \datefield & & \datefield \\
 \end{tabular}
 
@@ -108,7 +113,8 @@
 % field 3, program name, allcaps
 
 \makeatletter
-\@title
+\textbf{\@title} \\
+{\large \documenttype}
 \makeatother
 
 \vskip 7mm
@@ -119,7 +125,7 @@
 
 % field 4, document id, storage type
 
-{{#1}--ЛУ}
+\textbf{{{#1}--ЛУ}}
 
 %{\scriptsize (вид носителя данных)}
 
@@ -129,23 +135,12 @@
 \vskip 10mm
 
 % field 6, 
-\begin{tabular}{p{70mm}cp{70mm}}
-СОГЛАСОВАНО & & Пред\-ста\-ви\-те\-ли пред\-при\-я\-тия--раз\-ра\-бот\-чи\-ка ИПС РАН \\
+\begin{tabular}{p{70mm}cL{70mm}}
 & & \\
-Исполнительный директор Программы <<СКИФ>> от РФ & & Ответственный исполнитель \\
-директор ИПС РАН & &
-Главный конструктор ПО КУ, ст.~научный сотрудник НИИ механики МГУ \\
-\signfield{Абрамов~С.~М.} & & \signfield{Роганов~В.~А.} \\
-\datefield & & \datefield \\
 & & \\
 & & Исполнитель \\
-& & ведущий специалист МГУ \\
-& & \signfield{Слепухин~А.~Ф.} \\
-& & \datefield \\
-& & \\
-& & Нормоконтролер \\
-& & ОИПИ НАН Беларуси \\
-& & \signfield{Чернушевич~В.~Н.} \\
+& & студент группы БПИ1XX\\
+& & \signfield{\student} \\
 & & \datefield \\
 \end{tabular}
 
@@ -244,6 +239,16 @@
 \newpage
 }}
 
+\newcommand{\student}{Иванов~И.~И}
+\newcommand{\setstudent}[1]{\renewcommand{\student}{#1}}
+\newcommand{\group}{БПИ1XX}
+\newcommand{\setgroup}[1]{\renewcommand{\group}{#1}}
+\newcommand{\profname}{Авшодин~С.~М.}
+\newcommand{\setprofname}[1]{\renewcommand{\profname}{#1}}
+\newcommand{\proftitle}{Авшодин~С.~М.}
+\newcommand{\setproftitle}[1]{\renewcommand{\proftitle}{#1}}
+\newcommand{\documenttype}{Техническое задание}
+\newcommand{\setdocumenttype}[1]{\renewcommand{\documenttype}{#1}}
 
 \makeatletter
 \let\@uspdabstract\relax
