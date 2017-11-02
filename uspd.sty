@@ -5,6 +5,9 @@
 \usepackage{ifthen}
 \usepackage{tabulary}
 \usepackage{array}
+\usepackage{sectsty}
+\sectionfont{\centering}
+\setlength{\parindent}{1cm}
 \newcolumntype{K}[1]{>{\centering\arraybackslash}p{#1}}
 \newcolumntype{L}[1]{>{\raggedleft\arraybackslash}p{#1}}
 
@@ -26,24 +29,49 @@
 \footskip=10mm
 \setlength{\unitlength}{1mm}
 
-%\def\ps@uspdliheadings{
-%  \let\@oddfoot\@empty\let\@evenfoot\@empty
-%  \def\@oddhead{\\{\rightmark}\\}
-%  \def\@evenhead{\\{\leftmark}\\}
-%  \let\@mkboth\@gobbletwo
-%  \let\sectionmark\@gobble
-%  \let\subsectionmark\@gobble
-%}
+\def\ps@uspdliheadings{
+  \let\@oddfoot\@empty\let\@evenfoot\@empty
+  \def\@oddhead{\\{\rightmark}\\}
+  \def\@evenhead{\\{\leftmark}\\}
+  \let\@mkboth\@gobbletwo
+  \let\sectionmark\@gobble
+  \let\subsectionmark\@gobble
+}
 
 \def\ps@uspdluheadings{
   \let\@oddhead\@empty\let\@evenhead\@empty
+  \let\@oddfoot\@empty\let\@evenfoot\@empty
   \let\@mkboth\@gobbletwo
   \let\sectionmark\@gobble
   \let\subsectionmark\@gobble
 }
 
 \def\ps@uspdnormheadings{
-  \let\@oddfoot\@empty\let\@evenfoot\@empty
+  \def\@oddfoot{\begin{picture}(180,25)  	
+	\put(0,5){\line(1,0){185}}
+	\put(0,10){\line(1,0){185}}	
+	\put(0,15){\line(1,0){185}}
+	\put(0,20){\line(1,0){185}}		
+	\put(0,25){\line(1,0){185}}
+	\put(0,5){\line(0,1){20}}
+	\put(51,5){\line(0,1){20}}
+	\put(85,5){\line(0,1){20}}
+	\put(119,5){\line(0,1){20}}
+	\put(153,5){\line(0,1){20}}
+	\put(185,5){\line(0,1){20}}	
+	\put(1,6){\parbox[t]{50mm}{\small Инв. {\No} подл.}}
+	\put(1,11){\parbox[t]{50mm}{\small{\code}}}
+	\put(1,16){\parbox[t]{50mm}{Изм}}
+	\put(52,6){\parbox[t]{25mm}{\small Подп. и дата}}
+	\put(52,16){\parbox[t]{30mm}{\small Лист}}
+	\put(86,16){\parbox[t]{30mm}{\small {\No} докум.}}
+	\put(86,6){\parbox[t]{30mm}{\small Взаим. инв. {\No}}}
+	\put(120,16){\parbox[t]{30mm}{\small Подп.}}
+	\put(120,6){\parbox[t]{30mm}{\small Инв. {\No} дубл.}}
+	\put(154,16){\parbox[t]{30mm}{\small Дата}}
+	\put(154,6){\parbox[t]{30mm}{\small Подп. и дата}}
+  	\end{picture}}
+  \let\@evenfoot\@empty
   \def\@oddhead{
   	\vbox{
 		\vbox{\hfil\thepage\hfil}
@@ -59,20 +87,22 @@
 
 \pagestyle{uspdnormheadings}
 
+
 \newcommand\stamp[1]{{
-\newpage
+\newpage\thispagestyle{uspdluheadings}
 \noindent\begin{picture}(0,0)(0,0)
-\put(-12,-252){\framebox(12,145)}
+\put(-12,-252){\framebox(14,145)}
 \put(-7,-252){\line(0,1){145}}
-\put(-12,-142){\line(1,0){12}}
-\put(-12,-167){\line(1,0){12}}
-\put(-12,-192){\line(1,0){12}}
-\put(-12,-227){\line(1,0){12}}
+\put(-12,-133){\line(1,0){14}}
+\put(-12,-158){\line(1,0){14}}
+\put(-12,-183){\line(1,0){14}}
+\put(-12,-210){\line(1,0){14}}
 \put(-11,-251){\begin{sideways}\parbox[t]{23mm}{\small Инв. {\No} подп.}\end{sideways}}
-\put(-11,-226){\begin{sideways}\parbox[t]{33mm}{\small Подп. и дата}\end{sideways}}
-\put(-11,-191){\begin{sideways}\parbox[t]{23mm}{\small Взам инв. {\No}}\end{sideways}}
-\put(-11,-166){\begin{sideways}\parbox[t]{23mm}{\small Инв. {\No} дубл.}\end{sideways}}
-\put(-11,-141){\begin{sideways}\parbox[t]{33mm}{\small Подп. и дата}\end{sideways}}
+\put(-6,-251){\begin{sideways}\parbox[t]{23mm}{\code}\end{sideways}}
+\put(-11,-209){\begin{sideways}\parbox[t]{33mm}{\small Подп. и дата}\end{sideways}}
+\put(-11,-182){\begin{sideways}\parbox[t]{23mm}{\small Взам инв. {\No}}\end{sideways}}
+\put(-11,-157){\begin{sideways}\parbox[t]{23mm}{\small Инв. {\No} дубл.}\end{sideways}}
+\put(-11,-132){\begin{sideways}\parbox[t]{33mm}{\small Подп. и дата}\end{sideways}}
 \end{picture}
 #1
 \newpage
@@ -113,8 +143,8 @@
 % field 3, program name, allcaps
 
 \makeatletter
-\textbf{\@title} \\
-{\large \documenttype}
+\textbf{\@title} 
+{\large \documenttype }
 \makeatother
 
 \vskip 7mm
@@ -149,7 +179,7 @@
 {{\number\year}}
 \end{center}
 \label{endlu}
-}
+}}
 
 \newcommand\TP[1]{{\markboth{{#1}}{{#1}}\setcounter{page}{1}\thispagestyle{uspdluheadings}\stamp{
 
@@ -181,7 +211,7 @@
 
 % field 4, document id, storage type
 \begin{center}
-{{#1}}
+{{#1--01}}
 %{\scriptsize (вид носителя данных)}
 \end{center}
 
@@ -198,11 +228,11 @@
 {{\number\year}}
 \end{center}
 }}
-}}
+}
 
 \newcommand\uspd@LI{{
 \newpage
-%\thispagestyle{uspdliheadings}
+\thispagestyle{uspdliheadings}
 \noindent\begin{picture}(185,247)(0,0)
 %\put(0,0){\framebox(12,145)}
 \put(0,0){\line(0,1){247}}
@@ -249,10 +279,12 @@
 \newcommand{\setproftitle}[1]{\renewcommand{\proftitle}{#1}}
 \newcommand{\documenttype}{Техническое задание}
 \newcommand{\setdocumenttype}[1]{\renewcommand{\documenttype}{#1}}
+\newcommand{\code}{Авшодин~С.~М.}
+\newcommand{\setcode}[1]{\renewcommand{\code}{#1}}
 
 \makeatletter
 \let\@uspdabstract\relax
 \newcommand\uspdabstract[1]{\def\@uspdabstract{#1}}
-\newenvironment{uspd}[1]{\sloppy\LU{#1}\TP{#1}\section*{Аннотация}\@uspdabstract\newpage\tableofcontents\newpage}{\uspd@LI}
+\newenvironment{uspd}[1]{\sloppy\LU{#1}\TP{#1}\section*{АННОТАЦИЯ}\@uspdabstract\newpage\tableofcontents\newpage}{\uspd@LI}
 \makeatother
 
